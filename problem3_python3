@@ -1,3 +1,4 @@
+## mycode
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         count=0
@@ -9,3 +10,22 @@ class Solution:
                 myStr = myStr + character 
             if len(myStr)>count:count = len(myStr)
         return count
+        
+## find best code
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        ts = ''
+        c = 0
+        
+        for ele in s:
+            if ele in ts:
+                if c < len(ts):
+                    c = len(ts)
+                ts = ts.split(ele)[1]
+            ts += ele
+            
+        if c < len(ts):
+            c = len(ts)
+            
+        return c
+

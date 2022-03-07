@@ -1,0 +1,11 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        count=0
+        myStr=""
+        for index,character in enumerate(s):
+            if myStr.find(character) !=-1:
+                myStr = myStr[myStr.find(character)+1:len(s)-1] + character
+            else:
+                myStr = myStr + character 
+            if len(myStr)>count:count = len(myStr)
+        return count

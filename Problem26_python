@@ -1,0 +1,31 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        left = right = 0
+        while right < len(nums):
+            while right < len(nums) and nums[left] == nums[right]:
+                    right += 1
+            if right == len(nums):
+                return left +1
+                
+            left += 1
+            nums[left] = nums[right]
+
+        return left+1
+        
+        
+Find best
+
+class Solution:
+    def removeDuplicates(self, nums):
+
+        nums[:] = sorted(set(nums))
+        return len(nums)
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        start = 1
+        
+        for i in range(0, len(nums) - 1):
+            if nums[i+1] != nums[i]:
+                nums[start] = nums[i + 1]
+                start += 1
+        return start

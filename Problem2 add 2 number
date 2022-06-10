@@ -47,49 +47,34 @@ class Solution:
             node.next = ListNode(carry)
         return head.next
     
-        c1 = l1
-        c2 = l2
-        temp = 0
-        
-        while c1.next and c2: 
-            total = c1.val + c2.val + temp
-            c1.val = int(total % 10)
-            temp = int(total / 10)
-            c1, c2 = c1.next, c2.next
-        
-        # l1 is longer
-        while c1.next:
-            total = c1.val + temp
-            c1.val = int(total % 10)
-            temp = int(total / 10)
-            c1 = c1.next
-        
-        # l1 & l2 are equal length
-        if c2:
-            total = c1.val + c2.val + temp
-            c1.val = int(total % 10)
-            temp = int(total / 10)
-        
-        # l2 is longer
-        if c2 and c2.next:
-            c1.next = c2.next
-            while c1.next:
-                c1 = c1.next
-                total = temp + c1.val
-                c1.val = int(total % 10)
-                temp = int(total / 10)
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        res = ListNode()
+        cur_ind = res
+        cur_digit = 0
+        buf_digit = 0
+        while(l1 is not None or l2 is not None):
+            if(l1 is None):
+                cur_digit = l2.val + buf_digit
+                l2 = l2.next
+            elif(l2 is None):
+                cur_digit = l1.val + buf_digit
+                l1 = l1.next
+            else:
+                cur_digit = l1.val + l2.val + buf_digit
+                l1 = l1.next
+                l2 = l2.next
+            if cur_digit>9:
+                buf_digit = 1
+                cur_digit -= 10
+            else:
+                buf_digit = 0
+            # buf_digit = 1 if cur_digit > 9 else 0 
+            # cur_digit = cur_digit % 10
             
-        # END
-        # Second last value of long l1
-        if c2 == None:
-            total = c1.val + temp
-            c1.val = int(total % 10)
-            temp = int(total / 10)
-        
-        # Add to end of l1
-        if temp != 0:
-            final.val = temp
-            final.next = None
-            c1.next = final
+            cur_ind.next = ListNode(cur_digit)
+            cur_ind = cur_ind.next
             
-        return l1
+        if buf_digit>0:
+            cur_ind.next = ListNode(buf_digit)
+        
+        return res.next

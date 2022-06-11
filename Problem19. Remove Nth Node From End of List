@@ -1,0 +1,47 @@
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        fast = slow = head
+        i = 0
+        
+        while fast and i < n:
+            fast = fast.next
+            i += 1
+        if not fast:
+            return head.next
+
+        while fast.next:
+            fast = fast.next
+            slow = slow.next
+            
+        slow.next = slow.next.next
+            
+        return head
+                
+                
+                
+ Find
+ class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        fast, l = head, 0
+        
+        while fast and fast.next:
+            l += 2
+            fast = fast.next.next
+            
+        # if fast:
+        #     l += 1
+            
+        n = l - n + bool(fast)
+        
+        if n == 0:
+            return head.next
+        
+        cur, pos = head, 0
+        while cur:
+            if pos+1 == n:
+                cur.next = cur.next.next
+                return head
+            cur = cur.next
+            pos += 1
+            
+        return head

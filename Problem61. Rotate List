@@ -1,0 +1,71 @@
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        fast = slow = head
+        if not head:
+            return None
+        if not head.next:
+            return head
+        
+        i = 1
+        
+        while fast.next:
+            fast = fast.next
+            i += 1
+            
+        i = k%i
+        fast = head
+        
+        for j in range(i):
+            fast = fast.next
+            
+            
+        if fast == slow :
+            return head
+        while fast and fast.next:
+            fast = fast.next
+            slow = slow.next
+       
+        result = slow.next
+        slow.next = None
+        fast.next = head
+        
+        return result
+        
+ Find
+ class Solution:    
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+         if not head or not head.next:
+            return head
+        
+        #count number of nodes. Also gets us to last node which we need later on
+        last, listLength = head, 1
+        while last.next:
+            last = last.next
+            listLength += 1
+        
+        k = k % listLength # if k < length, k = k. if k > length, only rotate by the remainder
+        if k == 0: #no rotation needed
+            return head
+        
+        current = head
+        for i in range(listLength - k):
+            current = current.next # reach the node the new list will start from
+        
+        
+            
+        result = tail = ListNode()
+        tail.next = current # result/tail now contain the first part of the list (the part that got rotated)
+        
+        #traverse tail until we reach the end
+        tail = last #last contains original last node from when we counted the nodes
+        # while tail.next:
+        #     tail = tail.next
+            
+        current = head
+        for _ in range(listLength - k):
+            tail.next = ListNode()
+            tail = tail.next
+            tail.val = current.val
+            current = current.next
+            
+        return result.next

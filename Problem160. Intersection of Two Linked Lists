@@ -1,0 +1,33 @@
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        lengtha = 0
+        lengthb = 0
+        tmpa = headA
+        tmpb = headB
+        
+        while tmpa:
+            lengtha += 1
+        while tmpb:
+            lengthb += 1
+            
+        while  tmpa == tmpb:
+            tmpa = headA
+            tmpb = headB
+            for i in range(lengtha-1):
+                tmpa = tmpa.next
+            for i in range(lengthb-1):
+                tmpb = tmpb.next
+            lengtha -= 1
+            lengthb -= 1
+                
+                
+        return tmpa
+    
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:    
+        a, b = headA, headB
+        while (a != b):
+            a = headB if not a else a.next
+            b = headA if not b else b.next
+        return a
+        

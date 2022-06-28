@@ -1,0 +1,72 @@
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ls;
+        inorder(root,ls);
+            
+        return ls;
+        
+            
+    }
+private:
+    void inorder(TreeNode* root, vector<int> &ls){
+        if (root ==NULL)
+            return ;
+        inorder(root->left,ls);
+        ls.push_back(root->val);
+        inorder(root->right,ls);
+    } 
+};
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ls;
+        stack<TreeNode*> s;
+        
+        while(root != NULL || !s.empty())
+        {
+            while(root != NULL)
+            {
+                s.push(root);
+                root = root->left;
+            }
+            root = s.top();
+            s.pop();
+            ls.push_back(root->val);
+            root = root->right;
+        }
+        return ls;
+            
+
+};
+};
+
+Morris traversal
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> nodes;
+        while (root) {
+            if (root -> left) {
+                TreeNode* pre = root -> left;
+                while (pre -> right && pre -> right != root) {
+                    pre = pre -> right;
+                }
+                if (!pre -> right) {
+                    pre -> right = root;
+                    root = root -> left;
+                } else {
+                    pre -> right = NULL;
+                    nodes.push_back(root -> val);
+                    root = root -> right;
+                }
+            } else {
+                nodes.push_back(root -> val);
+                root = root -> right;
+            }
+        }
+        return nodes;
+    }
+};

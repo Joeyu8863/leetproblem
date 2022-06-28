@@ -1,0 +1,83 @@
+class Solution {
+public:
+    vector<TreeNode*> generateTrees(int n) {
+        vector<TreeNode*> ans;
+        if (n==0)
+            return ans;
+        int *a = new int[n];
+        for(int i =0;i<n;i++)
+        {
+            a[i] = i+1;
+        }
+        int index = 0;
+        do
+        {
+            TreeNode* tmp = new TreeNode(a[0]);
+            ans[index] = tmp;
+            for(int i=1;i<n;i++)
+            {
+                TreeNode* anotmp = new TreeNode(a[i]);
+                if(a[i] > tmp->val)
+                {
+                    tmp->right = anotmp;
+                    tmp = tmp->right;
+                }
+                else
+                {
+                    tmp->left = anotmp;
+                    tmp = tmp->left;
+                }
+            }
+            index++;
+            
+        }while(next_permutation(a, a + n));
+
+        
+        return ans;
+    }
+};
+Find
+class Solution {
+public:
+	// 对 from...to 构造出 UBST，返回所有 UBST
+	vector<TreeNode*> generateTree(int from, int to)
+	{
+		vector<TreeNode*> ret;
+		if (from > to)
+			ret.push_back(nullptr);
+		else if (from == to)
+			ret.push_back(new TreeNode(from));
+		else
+		{
+			// 以 i 为根节点
+			for (int i = from; i <= to; ++i)
+			{
+				// 递归求解所有可能的左子树
+				vector<TreeNode*> left_subtree = generateTree(from, i - 1);
+				// 递归求解所有可能的右子树
+				vector<TreeNode*> right_subtree = generateTree(i + 1, to);
+
+				// 左子树x右子树，在加上根节点，构成一个 from...to 的UBST
+				// 这里用两层循环实现了左右子树的组合。可见，与 96. Unique Binary Search Trees 的思想是相通的。
+				for (int j = 0; j < left_subtree.size(); ++j)
+				{
+					for (int k = 0; k < right_subtree.size(); ++k)
+					{
+						TreeNode* root = new TreeNode(i);
+						root->left = left_subtree[j];
+						root->right = right_subtree[k];
+						ret.push_back(root);
+					}
+				}
+			}
+		}
+		return ret;
+	}
+
+	vector<TreeNode*> generateTrees(int n)
+	{
+		if (n == 0)
+			return vector<TreeNode*>();
+		return generateTree(1, n);
+	}
+};

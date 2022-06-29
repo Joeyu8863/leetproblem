@@ -1,0 +1,74 @@
+class Solution(object):
+
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if root == None:
+            return []
+        res=[]
+        level = [root]
+        while level:
+            nextlevel = []
+            currentNode = []
+            for node in level:
+                currentNode.append(node.val)
+                if node.left:
+                    nextlevel.append(node.left)
+                if node.right:
+                    nextlevel.append(node.right)
+            res.append(currentNode)
+            level = nextlevel
+            
+        return res
+        
+        
+  Find
+  class Solution(object):
+  
+  def levelOrder(self, root):
+    """
+    :type root: TreeNode
+    :rtype: List[List[int]]
+    """
+    
+    answer = [];
+    
+    if (root == None):
+      return answer;
+    
+    # Obtaining the array of values from an array of nodes
+    def getNodeValues(nodeArr):
+      
+      answer = [];
+      
+      for node in nodeArr:
+        if (node != None):
+          answer.append(node.val);
+          
+      return answer;
+    
+    # BFS algorithm
+    def BFS(node):
+      
+      currFrontier = [node];
+      
+      while (currFrontier != []):
+        
+        answer.append(getNodeValues(currFrontier));
+        
+        nextFrontier = [];
+        for currNode in currFrontier:
+          
+          if (currNode.left != None):
+            nextFrontier.append(currNode.left);
+            
+          if (currNode.right != None):
+            nextFrontier.append(currNode.right);
+            
+        currFrontier = nextFrontier;
+        
+    # Returning the answer    
+    BFS(root);
+    return answer;

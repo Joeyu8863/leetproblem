@@ -1,0 +1,28 @@
+class Solution(object):
+    def recoverTree(self, root):
+        def inorder(node, left_bound, cands):
+            if not node:
+                return left_bound
+            left_bound = inorder(node.left, left_bound, cands)
+            if left_bound.val > node.val:
+                cands.extend([left_bound, node])
+            return inorder(node.right, node, cands) if node.right else node
+
+        cands = []
+        inorder(root, TreeNode(-float('inf')), cands)
+        cands[0].val, cands[-1].val = cands[-1].val, cands[0].val
+        
+        
+class Solution(object):
+    def recoverTree(self, root):
+        cur,prev,stack,swap = root,TreeNode(float("-inf")),[],[]
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            node = stack.pop()
+            if prev.val > node.val:
+                swap.append((prev, node)) 
+            prev, cur = node, node.right
+                
+        swap[0][0].val,swap[-1][1].val = swap[-1][1].val,swap[0][0].val

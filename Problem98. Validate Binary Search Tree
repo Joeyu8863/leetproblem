@@ -1,0 +1,56 @@
+C++
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        if(root == NULL)
+            return true;
+        if(root->left == NULL && root->right == NULL)
+            return true;
+        if(root->left->val >= root->val || root->right->val <= root->val){
+            return false;
+        }
+        else
+            return isValidBST(root->left) || isValidBST(root->right);
+    }
+};
+class Solution {
+public:
+    bool valid(TreeNode* root, TreeNode* &prev){
+        if(root == NULL)
+            return true;
+        if(!valid(root->left,prev))
+            return false;
+        if(prev!= NULL && root->val <= prev->val)
+            return false;
+        prev = root;
+        return valid(root->right,prev);
+    }
+    bool isValidBST(TreeNode* root) {
+        TreeNode* prev = NULL;
+        return valid(root,prev);
+        
+    }
+};
+Python
+class Solution(object):
+    def isValidBST(self, root,lessthan = float('inf'), largerthan = float('-inf')):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root == None:return True
+        if root.val >= lessthan or root.val <= largerthan: return False
+            
+        return self.isValidBST(root.left,min(root.val,lessthan),largerthan) and self.isValidBST(root.right,lessthan,max(largerthan,root.val))
+class Solution(object):
+    
+    def valid(self, root,prev): 
+        if root == None: return True
+        if not self.valid(root.left,self.prev):return False
+        if self.prev != None and self.prev.val >= root.val: return False
+        self.prev = root
+        return self.valid(root.right,self.prev)
+    
+    def isValidBST(self, root):
+        self.prev = None;
+        return self.valid(root,self.prev)

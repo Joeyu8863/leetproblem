@@ -1,0 +1,20 @@
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n, minreach, maxreach, jumps = len(nums),0,0,0
+        while maxreach < n-1:
+            jumps += 1
+            maxend = maxreach + 1
+            for i in range(minreach,maxend):
+                if i +nums[i] >= n-1:
+                    return jumps
+                
+                maxend = max(maxend,i+nums[i])
+            minreach,maxreach = maxreach + 1,maxend
+            
+        return jumps
+                
+                

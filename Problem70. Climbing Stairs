@@ -1,0 +1,28 @@
+class Solution:
+    def climbStairs(self, n):
+        a = b = 1
+        for _ in range(n):
+            a, b = b, a + b
+        return a
+
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        memo_dict = {}
+        # memo_dict[1] = 1
+        # memo_dict[2] = 2
+        
+        def num_ways(n):
+            
+            
+            if n == 1:
+                return 1
+            if n == 2:
+                return 2
+            
+            if n not in memo_dict:
+                memo_dict[n] = num_ways(n-1) + num_ways(n-2)
+                
+            return memo_dict[n]
+            
+        return num_ways(n)
+        

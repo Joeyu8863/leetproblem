@@ -1,0 +1,20 @@
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        if len(cost)<2:
+            return 0
+        dp = [0]*len(cost)
+        dp[0] = cost[0]
+        dp[1] = cost[1]
+        
+        for i in range(2,len(cost)):
+            dp[i] = min(dp[i-1],dp[i-2])+cost[i]
+            
+        return min(dp[len(cost)-1],dp[len(cost)-2])
+        
+  Find
+  class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        a,b=0,0
+        for i in range(2,len(cost)+1):
+            b,a = a,min(a+cost[i-1],b+cost[i-2])
+        return a

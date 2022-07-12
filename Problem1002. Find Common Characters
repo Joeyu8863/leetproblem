@@ -1,0 +1,22 @@
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        if not words:
+            return []
+        hashtable = [0]*26
+        for i,w in enumerate(words[0]):
+            hashtable[ord(w)-ord("a")] += 1
+        for i in range(1,len(words)):
+            anohash = [0]*26
+            for j in range(len(words[i])):
+                anohash[ord(words[i][j])-ord("a")] += 1
+            for j in range(26):
+                hashtable[j] = min(hashtable[j],anohash[j])
+                
+                
+        res = []
+        for j in range(26):
+            while hashtable[j] != 0:
+                res.append(chr(j + ord("a")))
+                hashtable[j] -= 1
+                
+        return res

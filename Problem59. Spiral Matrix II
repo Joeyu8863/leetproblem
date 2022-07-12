@@ -1,0 +1,28 @@
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        nums = [[0]*n for _ in range(n)]
+        x,y = 0,0
+        looptime = mid = n//2
+        cur = 1
+        
+        for i in range(1,looptime+1):
+            for j in range(y,n-i):
+                nums[x][j] = cur
+                cur += 1
+            for j in range(x,n-i):
+                nums[j][n-i] = cur
+                cur += 1
+            for j in range(n-i,y,-1):
+                nums[n-i][j] = cur
+                cur += 1
+            for j in range(n-i,x,-1):
+                nums[j][y] = cur
+                cur += 1
+            x += 1
+            y += 1
+            
+        if n % 2 == 1:
+            nums[mid][mid] = cur
+            
+        return nums
+            

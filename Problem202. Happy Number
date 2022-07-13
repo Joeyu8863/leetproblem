@@ -1,0 +1,19 @@
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        def sqsum(num):
+            s = 0
+            while(num):
+                s += (num%10)**2
+                num = num//10
+                
+            return s
+        rec = set()
+        
+        while(True):
+            n = sqsum(n)
+            if n == 1:
+                return True
+            if n in rec:
+                return False
+            else:
+                rec.add(n)

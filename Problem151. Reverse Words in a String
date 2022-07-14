@@ -1,0 +1,41 @@
+class Solution:
+    def remove_space(self,s):
+        l = len(s)
+        left,right = 0,l-1
+        while left < right and s[left] == ' ':
+            left += 1
+        while left < right and s[right] == ' ':
+            right -= 1
+        tmp=[]
+        while left<=right:                                    
+            if s[left]!=' ':
+                tmp.append(s[left])
+            elif tmp[-1]!=' ':                                 
+                tmp.append(s[left])
+            left+=1
+        return tmp
+    def reverse_string(self,s,left,right):
+        while left < right:
+            s[left],s[right] = s[right],s[left]
+            left += 1
+            right -= 1
+        return None
+    def reverse_words(self,s):
+        left,right = 0,0
+        while left < len(s):
+            while right < len(s) and s[right] != ' ':
+                right += 1
+            self.reverse_string(s,left,right-1)
+            left = right + 1
+            right += 1
+        return None
+    def reverseWords(self, s: str) -> str:
+        tmp = self.remove_space(s)
+        self.reverse_string(tmp,0,len(tmp)-1)
+        self.reverse_words(tmp)
+        return ''.join(tmp)
+Build in
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        res = s.strip().split()
+        return " ".join(res[::-1])    

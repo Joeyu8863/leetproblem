@@ -27,3 +27,22 @@ class Solution:  kmp
                 p += 1
             next_[i] = p
         return next_
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        if len(haystack) == 0 and len(needle) == 0:
+            return 0
+        if len(needle) == 0:
+            return 0
+        a = len(needle)
+        j = 0
+        for i in range(0, len(haystack)):
+            j = 0
+            for k in range(i, len(haystack)):
+                if haystack[k] == needle[j]:
+                    j = j + 1
+                else:
+                    j = 0
+                    break
+                if j == len(needle):
+                    return (k +1) - len(needle)
+        return - 1

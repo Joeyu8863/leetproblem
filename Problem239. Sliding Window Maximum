@@ -25,3 +25,20 @@ class Solution:
             que.push(nums[i])
             result.append(que.front())
         return result
+        
+        two pointers
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        left = 0
+        curMax = max(nums[:k])
+        yield curMax
+        
+        for i in range(k, len(nums)):
+            left +=1
+            if curMax == nums[left-1]:
+                if nums[left] >= curMax-1:
+                    curMax = nums[left]
+                else:
+                    curMax = max(nums[left:i+1])
+            curMax = curMax if curMax > nums[i] else nums[i]
+            yield curMax

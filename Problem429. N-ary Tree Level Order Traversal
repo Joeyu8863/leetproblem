@@ -1,0 +1,16 @@
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
+        if not root:
+            return None
+        result = []
+        level = deque([root])
+        
+        while level:
+            curnode = []
+            for i in range(len(level)):
+                node = level.popleft()
+                curnode.append(node.val)
+                if node.children:
+                    level.extend(node.children)
+            result.append(curnode)
+            
+        return result

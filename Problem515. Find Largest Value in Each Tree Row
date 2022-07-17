@@ -1,0 +1,18 @@
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return None
+        result = []
+        level = deque([root])
+        
+        while level:
+            curnode = []
+            for i in range(len(level)):
+                node = level.popleft()
+                curnode.append(node.val)
+                if node.left:
+                    level.append(node.left)
+                if node.right:
+                    level.append(node.right)
+            result.append(max(curnode))
+        return result

@@ -1,0 +1,21 @@
+class Solution:
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if not root:
+            return None
+        
+        level = deque([root])
+        
+        while level:
+            n = len(level)
+            for i in range(n):
+                node = level.popleft()
+                if node.left:
+                    level.append(node.left)
+                if node.right:
+                    level.append(node.right)
+                if i == n - 1: break at the end of the level , leave the end.next be null
+                    break
+                tmp = level.popleft() 
+                level.appendleft(tmp)
+                node.next = tmp
+        return root

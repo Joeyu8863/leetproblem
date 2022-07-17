@@ -1,0 +1,44 @@
+class Solution: deque
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        if not root:
+            return None
+        result = []
+        level = deque([root])
+        
+        while level:
+            size = len(level)
+            sum_ = 0
+            for i in range(size):
+                node = level.popleft()
+                sum_ += node.val
+                if node.left:
+                    level.append(node.left)
+                if node.right:
+                    level.append(node.right)
+            result.append(sum_/size)
+
+        return result
+        
+        
+  class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        if not root:
+            return None
+        result = []
+        level = deque([root])
+        
+        while level:
+            curnode = []
+            nextlevel = []
+            sum_ = 0
+            for i in level:
+                sum_ += i.val
+                curnode.append(i.val)
+                if i.left:
+                    nextlevel.append(i.left)
+                if i.right:
+                    nextlevel.append(i.right)
+            result.append(sum_/len(level))
+            level = nextlevel
+            
+        return result

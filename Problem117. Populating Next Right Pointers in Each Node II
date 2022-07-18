@@ -1,0 +1,16 @@
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root:
+            return None
+        queue = [root]
+        while queue:  
+            length = len(queue)
+            tail = None 
+            for i in range(length): 
+                curnode = queue.pop(0)
+                if tail:
+                    tail.next = curnode 
+                tail = curnode
+                if curnode.left : queue.append(curnode.left)
+                if curnode.right: queue.append(curnode.right)
+        return root

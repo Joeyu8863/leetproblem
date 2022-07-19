@@ -1,0 +1,16 @@
+class Solution:
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        res = 0
+        level = deque() / []
+        if root:
+            level.append(root)
+        
+        while level:
+            node = level.pop()
+            if node.left and not node.left.left and not node.left.right:
+                res += node.left.val
+            if node.left:
+                level.append(node.left)
+            if node.right:
+                level.append(node.right)
+        return res

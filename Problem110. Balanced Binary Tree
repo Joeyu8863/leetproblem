@@ -1,0 +1,41 @@
+class Solution:
+    def balance(self,node):
+        if not node:
+            return 0
+        left = self.balance(node.left)
+        if left == -1:
+            return -1
+        right = self.balance(node.right)
+        if right == -1:
+            return -1
+        
+        if abs(left-right) > 1:
+            return -1
+        else:
+            return 1+max(left,right)
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+
+        return True if self.balance(root)!=-1 else False
+        
+        
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+
+        height_map = {}
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node:
+                stack.append(node)
+                stack.append(None)
+                if node.left: stack.append(node.left)
+                if node.right: stack.append(node.right)
+            else:
+                real_node = stack.pop()
+                left, right = height_map.get(real_node.left, 0), height_map.get(real_node.right, 0)
+                if abs(left - right) > 1:
+                    return False
+                height_map[real_node] = 1 + max(left, right)
+        return True

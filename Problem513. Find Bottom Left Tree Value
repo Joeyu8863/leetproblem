@@ -1,0 +1,18 @@
+class Solution:
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        res = 0
+        ls = deque()
+        if root:
+            ls.append(root)
+            
+        while ls:
+            l = len(ls)
+            for i in range(l):
+                node = ls.popleft()
+                if i == 0:
+                    res = node.val
+                if node.left:
+                    ls.append(node.left)
+                if node.right:
+                    ls.append(node.right)
+        return res

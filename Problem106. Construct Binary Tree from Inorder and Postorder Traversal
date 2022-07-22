@@ -1,0 +1,100 @@
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        if not inorder:
+            return None
+        rootval = postorder[-1]
+        root = TreeNode(rootval)
+        inorder_separator = inorder.index(rootval)
+        
+        leftinorder = inorder[:inorder_separator]
+        rightinorder = inorder[inorder_separator+1:]
+        
+        leftpostorder = postorder[:len(leftinorder)]
+        rightpostorder = postorder[len(leftinorder):len(postorder)-1]
+        
+        root.left = self.buildTree(leftinorder,leftpostorder)
+        root.right = self.buildTree(rightinorder,rightpostorder)
+        
+        return root
+  class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        # Definition for a binary tree node.
+        
+        if not inorder or not postorder:
+            return None
+      
+        
+        root = TreeNode(postorder.pop())
+        mid = inorder.index(root.val)
+       
+        
+        
+      
+        
+        root.right = self.buildTree(inorder[mid+1:], postorder[mid:])
+        root.left = self.buildTree(inorder[:mid], postorder[:mid])
+        
+     
+        
+        return root
+    
+    '''
+
+'''
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        # Definition for a binary tree node.
+        
+        self.postIdx = len(postorder)-1
+            
+        
+        def create(low, high):
+            
+            if low > high:
+                return None
+            
+            root = TreeNode(postorder[self.postIdx])
+            self.postIdx-=1
+            
+            mid = inorder.index(root.val)
+            
+
+            root.right = create(mid+1, high)
+            root.left = create(low, mid-1)
+            
+            return root
+            
+        return create(0, len(inorder)-1)
+'''
+
+#Using hash map
+
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        # Definition for a binary tree node.
+        
+        self.postIdx = len(postorder)-1
+        
+        mp ={}
+        
+        for idx, value in enumerate(inorder):
+            mp[value] = idx
+            
+        
+        def create(low, high):
+            
+            if low > high:
+                return None
+            
+            root = TreeNode(postorder[self.postIdx])
+            self.postIdx-=1
+            
+            mid = mp[root.val]
+            
+
+            root.right = create(mid+1, high)
+            root.left = create(low, mid-1)
+            
+            return root
+            
+        return create(0, len(inorder)-1)

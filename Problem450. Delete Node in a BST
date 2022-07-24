@@ -1,0 +1,33 @@
+class Solution:
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        if not root:
+            return root
+        if root.val == key:
+            if not root.left and not root.right:
+                del root
+                return None
+            if not root.left and root.right:
+                tmp = root
+                root = root.right
+                del tmp
+                return root
+            if root.left and not root.right:
+                tmp = root
+                root = root.left
+                del tmp
+                return root
+            else:
+                v = root.right
+                while v.left:
+                    v = v.left
+                v.left = root.left
+                tmp = root
+                root = root.right
+                del tmp
+                return root
+        if root.val > key:
+            root.left = self.deleteNode(root.left,key)
+        if root.val < key:
+            root.right = self.deleteNode(root.right,key)
+            
+        return root

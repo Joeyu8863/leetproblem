@@ -1,0 +1,13 @@
+class Solution:
+    def __init__(self):
+        self.pre = TreeNode()
+    def cinorder(self,cur):
+        if not cur:
+            return 
+        self.cinorder(cur.right)
+        cur.val += self.pre.val
+        self.pre = cur
+        self.cinorder(cur.left)
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        self.cinorder(root)
+        return root

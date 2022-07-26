@@ -1,0 +1,20 @@
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        res = []
+        path = []
+        def backtrack(k,n,start,sum_):
+            if sum_> n: 
+                return
+            if len(path) == k and sum_ == n:
+                res.append(path[:])
+                return
+            for i in range(start,9-(k-len(path))+2):
+                path.append(i)
+                sum_ += i
+                backtrack(k,n,i+1,sum_)
+                sum_ -= i
+                path.pop()
+                
+                
+        backtrack(k,n,1,0)
+        return res

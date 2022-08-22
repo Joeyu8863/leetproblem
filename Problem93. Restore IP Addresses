@@ -1,0 +1,30 @@
+class Solution:
+    def __init__(self):
+        self.result = []
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        if len(s)> 12:
+            return []
+        self.backtracking(s,0,0)
+        return self.result
+    
+    def backtracking(self,s,startindex,pointnum):
+        if pointnum == 3:
+            if self.isvalid(s,startindex,len(s)-1):
+                self.result.append(s[:])
+                
+        for i in range(startindex,len(s)-1):
+            if self.isvalid(s,startindex,i):
+                s = s[:i+1] + '.' + s[i+1:]
+                self.backtracking(s,i+2,pointnum+1)
+                s = s[:i+1] + s[i+2:]
+            else:
+                break
+    def isvalid(self,s,start,end):
+        if start > end:
+            return False
+        if s[start] == "0" and start != end:
+            return False
+        if not 0 <= int(s[start:end+1]) <=255:
+            return False
+        
+        return True

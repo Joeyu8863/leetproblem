@@ -1,0 +1,39 @@
+class Solution:
+    def __init__(self):
+        self.path: List[int] = []
+        self.paths: List[List[int]] = []
+    def backtracking(self,nums,start):
+        if len(self.path) >= 2:
+            self.paths.append(self.path[:])
+            
+        ls = set()
+        for i in range(start,len(nums)):
+            if (self.path and nums[i] < self.path[-1]) or nums[i] in ls:
+                continue
+            ls.add(nums[i])
+            self.path.append(nums[i])
+            self.backtracking(nums,i+1)
+            self.path.pop()
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        self.backtracking(nums,0)
+        return self.paths
+        
+class Solution:
+    def __init__(self):
+        self.path: List[int] = []
+        self.paths: List[List[int]] = []
+    def backtracking(self,nums,start):
+        if len(self.path) >= 2:
+            self.paths.append(self.path[:])
+            
+        ls = [False] * 201 
+        for i in range(start,len(nums)):
+            if (self.path and nums[i] < self.path[-1]) or ls[nums[i]+100] == True:
+                continue
+            ls[nums[i]+100] =True
+            self.path.append(nums[i])
+            self.backtracking(nums,i+1)
+            self.path.pop()
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        self.backtracking(nums,0)
+        return self.paths

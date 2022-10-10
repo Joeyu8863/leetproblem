@@ -1,0 +1,14 @@
+class Solution:
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        arrow = len(points)
+        if arrow == 0:
+            return 0
+        points.sort(key = lambda x : x[0])
+        maxreach = points[0][1]
+        for i in range(1,len(points)):
+            if points[i][0] <= maxreach:
+                       arrow -= 1
+                       maxreach = min(maxreach,points[i][1])
+            else:
+                       maxreach = points[i][1]
+        return arrow

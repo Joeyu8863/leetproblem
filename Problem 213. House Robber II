@@ -15,3 +15,26 @@ class Solution:
         r1 = self.robhelper(nums[1:])
         r2 = self.robhelper(nums[:-1])
         return max(r1,r2)
+        
+        
+class Solution {
+    public int rob(int[] nums) {
+        int l = nums.length;
+        if (l == 1){
+            return nums[0];
+        }
+        int r1 = robhelper(nums,0,l-1);
+        int r2 = robhelper(nums,1,l);
+        return Math.max(r1,r2);
+            
+    }
+    int robhelper(int[] nums, int start, int size){
+        int x = 0, y = 0, z = 0;
+        for (int i = start; i < size; i++) {
+            y = z;
+            z = Math.max(y, x + nums[i]);
+            x = y;
+        }
+        return z;
+    }
+}
